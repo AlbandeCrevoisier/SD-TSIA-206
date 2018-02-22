@@ -36,6 +36,17 @@ half_sibling(X,Y) :-
 	parent(Z,X),parent(Z,Y),
 	parent(A,X),parent(B,Y),A\==B, A\==Z, B\==Z.
 
+even([]).
+even([X, Y | L]) :- even(L).
+odd(L) :- not(even(L)).
+last_elt([E], E).
+last_elt([X|L], E) :- last_elt(L, E).
+attach([],L,L).
+attach(L1, L2, L) :-
+        last_elt(L1, E), x(E, L1, T),
+        attach(T, [E|L2], L).
+multiplex([], [], []).
+multiplex([X|L1], [Y|L2], [[X,Y]|L]) :- multiplex(L1, L2, L).
 extract(X,[X|L],L).
 extract(X,[Y|L],[Y|L1]) :-
 	extract(X,L,L1).

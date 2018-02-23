@@ -1,14 +1,14 @@
-parent(p,f).
-parent(m,f).
-parent(gpp,p).
-parent(gmp,p).
-parent(gpm,m).
-parent(gmm,m).
-parent(gpp,t).
-parent(gmp,t).
-parent(t,cz).
-parent(p,d).
-parent(w,d).
+parent(p, f).
+parent(m, f).
+parent(gpp, p).
+parent(gmp, p).
+parent(gpm, m).
+parent(gmm, m).
+parent(gpp, t).
+parent(gmp, t).
+parent(t, cz).
+parent(p, d).
+parent(w, d).
 male(gpp).
 male(mpm).
 male(p).
@@ -20,21 +20,21 @@ female(m).
 female(t).
 female(w).
 
-child(X,Y) :- parent(Y,X).
-aunt(X,Y) :-
-	parent(P,Y),P\==X,
-	parent(GP,P),parent(GP,X),male(GP),
-	parent(GM,P),parent(GM,X),female(GM),
-	female(X),
+child(X, Y) :- parent(Y, X).
+aunt(X, Y) :-
+	parent(P, Y), P\==X, 
+	parent(GP, P), parent(GP, X), male(GP), 
+	parent(GM, P), parent(GM, X), female(GM), 
+	female(X), 
 	X \== Y.
-cousin(X,Y) :-
-	parent(P,Y),parent(S,X),P\==S,
-	parent(GP,P),parent(GP,S),male(GP),
-	parent(GM,P),parent(GM,S),female(GM).
-half_sibling(X,Y) :-
-	X\==Y,
-	parent(Z,X),parent(Z,Y),
-	parent(A,X),parent(B,Y),A\==B, A\==Z, B\==Z.
+cousin(X, Y) :-
+	parent(P, Y), parent(S, X), P\==S, 
+	parent(GP, P), parent(GP, S), male(GP), 
+	parent(GM, P), parent(GM, S), female(GM).
+half_sibling(X, Y) :-
+	X\==Y, 
+	parent(Z, X), parent(Z, Y), 
+	parent(A, X), parent(B, Y), A\==B,  A\==Z,  B\==Z.
 
 even([]).
 even([X, Y | L]) :- even(L).
@@ -43,10 +43,11 @@ last_elt([E], E).
 last_elt([X|L], E) :- last_elt(L, E).
 attach([],L,L).
 attach(L1, L2, L) :-
-        last_elt(L1, E), x(E, L1, T),
+        last_elt(L1, E), extract(E, L1, T),
         attach(T, [E|L2], L).
 multiplex([], [], []).
 multiplex([X|L1], [Y|L2], [[X,Y]|L]) :- multiplex(L1, L2, L).
+m([], []).
 extract(X,[X|L],L).
 extract(X,[Y|L],[Y|L1]) :-
 	extract(X,L,L1).

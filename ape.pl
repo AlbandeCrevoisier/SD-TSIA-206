@@ -1,9 +1,6 @@
-/*---------------------------------------------------------------*/
 /* ParisTech - Ecole Nationale Superieure des Telecommunications */
-/*---------------------------------------------------------------*/
-/*                                                   Dep. INFRES */
-/* Introduction to Prolog - Dessalles & Yvon 2004                */
-/*---------------------------------------------------------------*/
+/* Dep. INFRES */
+/* Introduction to Prolog - Dessalles & Yvon 2004 */
 
 % adapted from I. Bratko - "Prolog - Programming for Artificial Intelligence"
 %              Addison Wesley 1990
@@ -23,18 +20,16 @@
 %	- Final state
 %	- act
 
-action(state(X,floor,T,Z), state(Y,floor,T,Z), walk(X,Y)).
-action(state(middle,on_box,X,not_holding), state(middle,on_box,X,holding), grasp).
-action(state(X,floor,X,Y), state(X,on_box,X,Y), climb).
-action(state(X,floor,X,Z), state(Y,floor,Y,Z), push(X,Y)).
+action(state(middle, on_box, X, not_holding), grasp, state(middle, on_box, X, holding)).
+action(state(X, floor, X, Y), climb, state(X, on_box, X, Y)).
+action(state(X, floor, X, Z), push(X, Y), state(Y, floor, Y, Z)).
+action(state(X, floor, T, Z), walk(X, Y), state(Y, floor, T, Z)).
 
-
-success( state(_,_, _, holding)).
-success( State1) :- 
-	action(State1, State2, _Act),
-	success(State2).
+success(state(_, _,  _, holding), []).
+success(State1, [Act | Plan]) :- 
+	action(State1, Act, State2),
+	write('Action : '), write(Act), nl, write(' --> '), write(State2), nl,
+	success(State2, Plan).
 
 go :-
-	success(state(door, floor, window, not_holding)).
-
-
+	success(state(door, floor, window, not_holding), Plan).

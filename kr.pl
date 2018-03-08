@@ -22,3 +22,15 @@ empty(P) :-
 	empty(P).
 empty(P).
 
+findany(Var, Pred, Results) :-
+	Pred,
+	assert(found(Var)),
+	fail,
+	collect_found(Results),
+	findany(Var, Pred, Results).
+findany(_, _, Results).
+collect_found([X | R]) :-
+	found(X),
+	retract(found(X))
+	collect_found(R).
+collect_found([]).

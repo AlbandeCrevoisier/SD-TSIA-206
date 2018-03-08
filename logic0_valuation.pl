@@ -19,6 +19,11 @@ is_true(v0,a).
 is_true(V, X) :-
 	member(X,V).
 
+is_true(V, X imp Y) :- is_true(V, -X or Y).
+is_true(V, X equiv Y) :-
+	is_true(V, X imp Y),
+	is_true(V, Y imp X).
+
 valuation(V) :-
 	sub_set(V, [a,b,c]).	
 	
@@ -27,4 +32,4 @@ sub_set([X|XL], [X|YL]) :-
     sub_set(XL, YL).
 sub_set(XL, [_|YL]) :-
     sub_set(XL, YL).
-	
+

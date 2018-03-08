@@ -47,7 +47,8 @@ attach(L1, L2, L) :-
         attach(T, [E|L2], L).
 multiplex([], [], []).
 multiplex([X|L1], [Y|L2], [[X,Y]|L]) :- multiplex(L1, L2, L).
-m([], []).
+anyplex([], []).
+anyplex(
 extract(X,[X|L],L).
 extract(X,[Y|L],[Y|L1]) :-
 	extract(X,L,L1).

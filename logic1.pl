@@ -68,3 +68,20 @@ remove1(X, L, NL) :-
 	select(X, L, L1),   % available in SWI-Prolog
 	remove1(X, L1, NL).
 
+prove(F) :-
+	cnf([[ -F ]], CNF),
+	write('CNF of -'), write(F), write(' = '),
+	write(CNF), nl,
+	resolve(CNF).
+resolve(CNF) :-
+	member([ ], CNF),
+	write('This is a true formula'), nl.
+resolve(CNF) :-
+	write('Examining '), write(CNF), nl,
+	get0(_),    % waits for user action
+	select(C1, CNF, _),
+	select(C2, CNF, RCNF),
+	remove(P, C1, RC1),
+	remove(-P, C2, RC2),
+	append(RC1, RC2, RC),
+	resolve([RC|RCNF]).    % one of the parent clauses is removed

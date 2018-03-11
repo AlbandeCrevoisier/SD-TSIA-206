@@ -1,0 +1,11 @@
+There is a number "5" floating, like a page number.
+First-order logic
+Resolution algorithm
+1) After "a. True", [a, not b, not c] "annihilates" c in clause [...] : the comma between not b and not c is missing.
+2) The anwser to SyntacticDeduction is in French.
+Predicate logic
+A logic for predication
+1) "If there is an interpreter, then any two individuals communicate" : [can] communicate.
+Semantics
+1) A formula F is valid if F is true in any model of the language. : [in every models]
+2) The predicate '*' does not appear in (∀x) (a, x, x).
